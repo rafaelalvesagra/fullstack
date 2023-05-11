@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Listagem de Usuários</title>
+	<link rel="stylesheet" type="text/css" href="usuarios.css" />
+</head>
+
+<body>
+	<h1>Listagem de Usuários</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Login</th>
+				<th>Email</th>
+				<th>Senha</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody id="usuarios-table-body"></tbody>
+	</table>
+	<!--O BOTÃO É RESPONSAVEL POR PUXAR A ROTA GET.-->
+	<button type="button" onclick="ShowUser()">MostrarUsuarios</button>
+	<a class="index" href="index.html"><strong>Voltar</strong></a>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script>
+		const usuariosTableBody = document.getElementById("usuarios-table-body");
+
+		function ShowUser() {
+			axios.get("http://localhost:7000/usuarios")
+				.then((response) => {
+					usuariosTableBody.innerHTML = "";
+					response.data.forEach((usuario) => {
+						const row = document.createElement("tr");
+						row.innerHTML = `
+							<td>${usuario.id}</td>
+							<td>${usuario.login}</td>
+							<td>${usuario.email}</td>
+							<td>${usuario.senha}</td>
+							<td>
+								<button onclick="editarUsuario(${usuario.id})">Editar</button>
+								<button onclick="excluirUsuario(${usuario.id})">Excluir</button>
+							</td>
+						`;
+						usuariosTableBody.appendChild(row);
+					});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+
+	
+	</script>
+</body>
+
+</html>

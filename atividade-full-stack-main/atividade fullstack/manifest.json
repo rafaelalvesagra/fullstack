@@ -1,0 +1,42 @@
+{
+    "name": "Formulario",
+    "short_name": "forms ",
+    "icons": [
+      {
+        "src": "atividade-full-stack-main/atividade fullstack/imagem/img/128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "atividade-full-stack-main/atividade fullstack/imagem/img/144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "atividade-full-stack-main/atividade fullstack/imagem/img/152.png",
+        "sizes": "152x152",
+        "type": "image/png"
+      },
+      {
+        "src": "atividade-full-stack-main/atividade fullstack/imagem/img/167.png",
+        "sizes": "167x167",
+        "type": "image/png"
+      }
+      ,
+      {
+        "src": "atividade-full-stack-main/atividade fullstack/imagem/img/icon_256.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      }
+      ,
+      {
+        "src": "atividade-full-stack-main/atividade fullstack/imagem/img/icon_512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#31506F",
+    "theme_color": "#4D5360"
+  }

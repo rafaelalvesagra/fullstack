@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario</title>
+  <script>navigator.serviceWorker.register("service-worker.js")</script>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-TileImage" content="assets/img/icon_144.png">
+  <meta name="msapplication-TileColor" content="#31506F">
+  <meta name="theme-color" content="#4D5360" />
+  <link rel="shortcut icon" sizes="192x192" href="atividade-full-stack-main\atividade fullstack\imagem\img\192.png">
+  <link rel="shortcut icon" sizes="128x128" href="atividade-full-stack-main\atividade fullstack\imagem\img\128.png">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="PWA Teste">
+  <link rel="apple-touch-icon" href="atividade-full-stack-main\atividade fullstack\imagem\img\144.png">
+  <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="atividade-full-stack-main\atividade fullstack\imagem\img\152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="atividade-full-stack-main\atividade fullstack\imagem\img\180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="assets/img/icon_167.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link href="atividade-full-stack-main\atividade fullstack\imagem\img\ios\ipad.png" sizes="3200x4267"
+    rel="apple-touch-startup-image" />
+  <link href="assets/img/ios/ipadpro.png" sizes="3475x4633" rel="apple-touch-startup-image" />
+  <link href="assets/img/ios/ipadpro2.png" sizes="4267x5692" rel="apple-touch-startup-image" />
+  <link href="assets/img/ios/Iphone6Plus.png" sizes="2588x4600" rel="apple-touch-startup-image" />
+  <link href="assets/img/ios/Iphone7.png" sizes="1563x2779" rel="apple-touch-startup-image" />
+  <link href="assets/img/ios/IphoneSE-05.png" sizes="1333x2367" rel="apple-touch-startup-image" />
+  <link href="assets/img/ios/IphoneX-05.png" sizes="2344x5075" rel="apple-touch-startup-image" />
+
+</head>
+
+<body>
+  <style>
+    body {
+      background-image: url("atividade-full-stack-main\atividade fullstack\imagem\images.jpg");
+    }
+  </style>
+
+
+<div class="container">
+  <a class="links" id="paracadastro"></a>
+  <a class="links" id="paralogin"></a>
+
+  <form id="formCadastro" class="form" method="POST">
+    <div class="title">CADASTRO</div>
+    <div class="subtitle"></div>
+    <div class="input-container ic">
+      <input id="nome" name="nome" class="input" type="text" placeholder="  " />
+      <div class="cut"></div>
+      <label for="nome" class="placeholder">NOME</label>
+    </div>
+    <div class="input-container ic2">
+      <input id="email" name="email" class="input" required="required" type="text" placeholder=" " />
+      <div class="cut"></div>
+      <label for="email" class="placeholder">Email</label>
+    </div>
+    <div class="input-container ic2">
+      <input id="senha" name="senha" class="input" required="required" type="password" placeholder=" " />
+      <div class="cut cut-short"></div>
+      <label for="senha" class="placeholder">Senha</label>
+    </div>
+    <button type="submit" class="submit">Cadastrar</button>
+  </form>
+
+  <p></p>
+  <div class="usuario"> Já tem conta?
+    <p></p>
+    <a class="link" href="usuarios.html"> Ir para Usuarios Cadastrados </a>
+  </div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+const formCadastro = document.getElementById("formCadastro");
+
+formCadastro.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const nome = document.getElementById("nome").value;
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  axios.post("http://localhost:7000/enviarusers", {
+    nome: nome,
+    email: email,
+    senha: senha,
+  })
+  .then((response) => {
+    console.log(response.data);
+    alert("Cadastro realizado com sucesso!");
+  })
+  .catch((error) => {
+    console.log(error);
+    alert("Erro ao cadastrar usuário!");
+  });
+});
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    let newWorker;
+    function showUpdateBar() {
+      let snackbar = document.getElementById('snackbar');
+      snackbar.className = 'show';
+    }
+    // The click event on the pop up notification
+    document.getElementById('reload').addEventListener('click', function () {
+      newWorker.postMessage({ action: 'skipWaiting' });
+    });
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').then(reg => {
+        reg.addEventListener('updatefound', () => {
+          // A wild service worker has appeared in reg.installing!
+          newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            // Has network.state changed?
+            switch (newWorker.state) {
+              case 'installed':
+                if (navigator.serviceWorker.controller) {
+                  // new update available
+                  showUpdateBar();
+                }
+                // No update available
+                break;
+            }
+          });
+        });
+      });
+      let refreshing;
+      navigator.serviceWorker.addEventListener('controllerchange', function () {
+        if (refreshing) return;
+        window.location.reload();
+        refreshing = true;
+      });
+    }
+  </script>
+
+</body>
+
+</html>
